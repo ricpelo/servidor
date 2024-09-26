@@ -6,6 +6,8 @@
     <title>Resultado</title>
 </head>
 <body>
-    <p>Esto es el resultado del formulario.</p>
+    <p>El nombre es <?= $_POST['nombre'] ?>, el apellido
+    es <?= $_POST['apellidos'] ?> y el teléfono es
+    <?= $_POST['telefono'] ?>.</p>
 </body>
 </html>
