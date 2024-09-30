@@ -13,34 +13,30 @@
 
     if (isset($_GET['op1'])) {
         $op1 = trim($_GET['op1']);
-        if (empty($op1)) {
+        if ($op1 == '') {  // mb_strlen($op1) === 0
             $errores[] = "El primer operando es obligatorio.";
-        } else {
-            if (!is_numeric($op1)) {
-                $errores[] = "El primer operando no es un número.";
-            }
+        } elseif (!is_numeric($op1)) {
+            $errores[] = "El primer operando no es un número.";
         }
     }
 
     if (isset($_GET['op2'])) {
         $op2 = trim($_GET['op2']);
-        if (empty($op2)) {
+        if ($op2 == '') {
             $errores[] = "El segundo operando es obligatorio.";
-        } else {
-            if (!is_numeric($op2)) {
-                $errores[] = "El segundo operando no es un número.";
-            }
+        } elseif (!is_numeric($op2)) {
+            $errores[] = "El segundo operando no es un número.";
         }
     }
 
     if (isset($_GET['op'])) {
         $op = trim($_GET['op']);
-        if (empty($op)) {
+        if ($op == '') {
             $errores[] = "La operación es obligatoria.";
-        } else {
-            if (!in_array($op, ['+', '-', '*', '/'])) {
-                $errores[] = "Operación incorrecta.";
-            }
+        } elseif (!in_array($op, ['+', '-', '*', '/'])) {
+            $errores[] = "Operación incorrecta.";
+        } elseif ($op == '/' && $op2 == '0') {
+            $errores[] = "No se puede dividir entre cero.";
         }
     }
 
