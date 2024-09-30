@@ -61,6 +61,7 @@
         endswitch; ?>
         <p>La operación <?= $op1 ?> <?= $op ?> <?= $op2 ?> vale <?= $res ?>.</p><?php
     endif; ?>
+    <a href="calculadora.html"><button>Volver</button></a>
 </body>
 
 </html>
