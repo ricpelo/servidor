@@ -11,7 +11,9 @@
     <?php
     $errores = [];
 
-    if (isset($_GET['op1'])) {
+    if (!isset($_GET['op1'])) {
+        $errores[] = "Falta el primer operando.";
+    } else {
         $op1 = trim($_GET['op1']);
         if ($op1 == '') {  // mb_strlen($op1) === 0
             $errores[] = "El primer operando es obligatorio.";
@@ -20,7 +22,9 @@
         }
     }
 
-    if (isset($_GET['op2'])) {
+    if (!isset($_GET['op2'])) {
+        $errores[] = "Falta el segundo operando.";
+    } else {
         $op2 = trim($_GET['op2']);
         if ($op2 == '') {
             $errores[] = "El segundo operando es obligatorio.";
@@ -29,7 +33,9 @@
         }
     }
 
-    if (isset($_GET['op'])) {
+    if (!isset($_GET['op'])) {
+        $errores[] = "Falta la operación";
+    } else {
         $op = trim($_GET['op']);
         if ($op == '') {
             $errores[] = "La operación es obligatoria.";
