@@ -11,35 +11,77 @@
     <?php
     $errores = [];
 
-    if (!isset($_GET['op1'])) {
-        $errores[] = "Falta el primer operando.";
-    } else {
+    function comprobar_parametro($par, $mensaje)
+    {
+        global $errores;
+
+        if (!isset($_GET[$par])) {
+            $errores[] = $mensaje;
+        }
+    }
+
+    function comprobar_no_vacio($cadena, $mensaje)
+    {
+        global $errores;
+
+        if ($cadena == '') {
+            $errores[] = $mensaje;
+        }
+    }
+
+    function comprobar_numerico($numero, $mensaje)
+    {
+        global $errores;
+
+        if (!is_numeric($numero)) {
+            $errores[] = $mensaje;
+        }
+    }
+
+    function no_hay_errores()
+    {
+        global $errores;
+        return empty($errores);
+    }
+
+    function comprobar_primer_operando()
+    {
+        comprobar_parametro('op1', "Falta el primer operando.");
+    }
+
+    function comprobar_segundo_operando()
+    {
+        comprobar_parametro('op2', "Falta el segundo operando.");
+    }
+
+    function comprobar_operacion()
+    {
+        comprobar_parametro('op', "Falta la operación.");
+    }
+
+    comprobar_primer_operando();
+    if (no_hay_errores()) {
         $op1 = trim($_GET['op1']);
-        if ($op1 == '') {  // mb_strlen($op1) === 0
-            $errores[] = "El primer operando es obligatorio.";
-        } elseif (!is_numeric($op1)) {
-            $errores[] = "El primer operando no es un número.";
+        comprobar_no_vacio($op1, "El primer operando es obligatorio.");
+        if (no_hay_errores()) {
+            comprobar_numerico($op1, "El primer operando no es un número.");
         }
     }
 
-    if (!isset($_GET['op2'])) {
-        $errores[] = "Falta el segundo operando.";
-    } else {
+    comprobar_segundo_operando();
+    if (no_hay_errores()) {
         $op2 = trim($_GET['op2']);
-        if ($op2 == '') {
-            $errores[] = "El segundo operando es obligatorio.";
-        } elseif (!is_numeric($op2)) {
-            $errores[] = "El segundo operando no es un número.";
+        comprobar_no_vacio($op2, "El segundo operando es obligatorio.");
+        if (no_hay_errores()) {
+            comprobar_numerico($op2, "El segundo operando no es un número.");
         }
     }
 
-    if (!isset($_GET['op'])) {
-        $errores[] = "Falta la operación";
-    } else {
+    comprobar_operacion();
+    if (no_hay_errores()) {
         $op = trim($_GET['op']);
-        if ($op == '') {
-            $errores[] = "La operación es obligatoria.";
-        } elseif (!in_array($op, ['+', '-', '*', '/'])) {
+        comprobar_no_vacio($op, "La operación es obligatoria.");
+        if (!in_array($op, ['+', '-', '*', '/'])) {
             $errores[] = "Operación incorrecta.";
         } elseif ($op == '/' && $op2 == '0') {
             $errores[] = "No se puede dividir entre cero.";
