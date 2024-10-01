@@ -1,6 +1,15 @@
 <?php
 
-function agregar_error($par, $mensaje, &$errores) {
+/**
+ * Añade un error al array de errores en la clave correcta según
+ * el parámetro con el que está asociado el error.
+ *
+ * @param  string $par
+ * @param  string $mensaje
+ * @param  array  $errores
+ * @return void
+ */
+function agregar_error(string $par, string $mensaje, array &$errores): void {
     if (!isset($errores[$par])) {
         $errores[$par] = [];
     }
