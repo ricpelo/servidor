@@ -16,10 +16,9 @@ function agregar_error(string $par, string $mensaje, array &$errores): void {
     $errores[$par][] = $mensaje;
 }
 
-function obtener_parametro($par, $mensaje ,&$errores)
+function obtener_parametro($par)
 {
     if (!isset($_GET[$par])) {
-        agregar_error($par, $mensaje, $errores);
         return null;
     }
 
@@ -52,8 +51,8 @@ function no_hay_errores($errores, $par)
 
 function comprobar_primer_operando(&$errores)
 {
-    $op1 = obtener_parametro('op1', "Falta el primer operando.", $errores);
-    if (no_hay_errores($errores, 'op1')) {
+    $op1 = obtener_parametro('op1');
+    if ($op1 !== null) {
         comprobar_no_vacio($op1, 'op1', "El primer operando es obligatorio.", $errores);
         if (no_hay_errores($errores, 'op1')) {
             comprobar_numerico($op1, 'op1', "El primer operando no es un número.", $errores);
@@ -65,8 +64,8 @@ function comprobar_primer_operando(&$errores)
 
 function comprobar_segundo_operando(&$errores)
 {
-    $op2 = obtener_parametro('op2', "Falta el segundo operando.", $errores);
-    if (no_hay_errores($errores, 'op2')) {
+    $op2 = obtener_parametro('op2');
+    if ($op2 !== null) {
         comprobar_no_vacio($op2, 'op2', "El segundo operando es obligatorio.", $errores);
         if (no_hay_errores($errores, 'op2')) {
             comprobar_numerico($op2, 'op2', "El segundo operando no es un número.", $errores);
@@ -78,8 +77,8 @@ function comprobar_segundo_operando(&$errores)
 
 function comprobar_operacion($op2, &$errores)
 {
-    $op = obtener_parametro('op', "Falta la operación.", $errores);
-    if (no_hay_errores($errores, 'op')) {
+    $op = obtener_parametro('op');
+    if ($op !== null) {
         comprobar_no_vacio($op, 'op', "La operación es obligatoria.", $errores);
         if (no_hay_errores($errores, 'op')) {
             if (!in_array($op, ['+', '-', '*', '/'])) {
